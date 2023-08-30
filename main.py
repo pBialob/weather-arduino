@@ -10,7 +10,7 @@ import time
 
 setScreenColor(lcd.WHITE)
 
-
+# Inicjalizacja zmiennych używanych w programie
 Random = None
 humidity = None
 temp = None
@@ -18,7 +18,7 @@ press = None
 weather = None
 
 
-
+# Inicjalizacja elementów interfejsu
 city = M5TextBox(10, 150, "city", lcd.FONT_UNICODE, lcd.BLACK, rotate=0)
 circle0 = M5Circle(56, 69, 18, lcd.BLACK, lcd.BLACK)
 circle1 = M5Circle(131, 74, 13, lcd.BLACK, lcd.BLACK)
@@ -43,19 +43,19 @@ circle5 = M5Circle(100, 84, 49, lcd.BLACK, lcd.BLACK)
 import random
 
 
-# Describe this function...
+# Pokazuje animację słonecznej pogody
 def show_sunny():
   global Random, humidity, temp, press, weather
   circle6.show()
   circle5.show()
 
-# Describe this function...
+# Ukrywa animację słonecznej pogody
 def hide_sunny():
   global Random, humidity, temp, press, weather
   circle6.hide()
   circle5.hide()
 
-# Describe this function...
+# Pokazuje animację deszczowej pogody
 def show_rainy():
   global Random, humidity, temp, press, weather
   circle0.show()
@@ -69,7 +69,7 @@ def show_rainy():
   rectangle5.show()
   rectangle10.show()
 
-# Describe this function...
+# Ukrywa animację deszczowej pogody
 def hide_rainy():
   global Random, humidity, temp, press, weather
   circle0.hide()
@@ -82,15 +82,15 @@ def hide_rainy():
   rectangle2.hide()
   rectangle5.hide()
   rectangle10.hide()
-
-# Describe this function...
+  
+# Animuje słoneczną pogodę
 def animate_sunny():
   global Random, humidity, temp, press, weather
   Random = random.randint(49, 55)
   circle6.setSize(Random)
   circle5.show()
 
-# Describe this function...
+# Animuje deszczową pogodę
 def animate_rainy():
   global Random, humidity, temp, press, weather
   Random = random.randint(2, 50)
@@ -104,7 +104,8 @@ def animate_rainy():
   Random = random.randint(2, 50)
   rectangle10.setSize(height=Random)
 
-# Describe this function...
+
+# Domyślna inicjalzacja sceny i danych -> domyślnie Warszawa
 def init():
   global Random, humidity, temp, press, weather
   try:
@@ -130,7 +131,7 @@ def init():
   h_val.setText(str(humidity))
   coreInkShow()
 
-# Describe this function...
+# Inicjalizuje dane pogodowe dla Londynu
 def setup_london():
   global Random, humidity, temp, press, weather
   try:
@@ -156,7 +157,7 @@ def setup_london():
   h_val.setText(str(humidity))
   coreInkShow()
 
-# Describe this function...
+# Inicjalizuje dane pogodowe dla Warszawy
 def setup_warsaw():
   global Random, humidity, temp, press, weather
   try:
@@ -182,7 +183,7 @@ def setup_warsaw():
   h_val.setText(str(humidity))
   coreInkShow()
 
-# Describe this function...
+# Inicjalizuje dane pogodowe dla Stavanger
 def setup_stavanger():
   global Random, humidity, temp, press, weather
   try:
@@ -208,14 +209,14 @@ def setup_stavanger():
   h_val.setText(str(humidity))
   coreInkShow()
 
-# Describe this function...
+# Resetuje wszystkie animacje pogody
 def reset_animations():
   global Random, humidity, temp, press, weather
   hide_sunny()
   hide_rainy()
   hide_cloudy()
 
-# Describe this function...
+# Ukrywa animację zachmurzonej pogody
 def hide_cloudy():
   global Random, humidity, temp, press, weather
   circle0.hide()
@@ -223,8 +224,8 @@ def hide_cloudy():
   circle2.hide()
   circle3.hide()
   circle4.hide()
-
-# Describe this function...
+  
+# Pokazuje animację zachmurzonej pogody
 def show_cloudy():
   global Random, humidity, temp, press, weather
   circle0.show()
@@ -234,18 +235,21 @@ def show_cloudy():
   circle4.show()
 
 
+# Przycisk UP wywołuje inicjalizacje sceny i danych dla Stavanger
 def buttonUP_wasPressed():
   global Random, humidity, temp, press, weather
   setup_stavanger()
   pass
 btnUP.wasPressed(buttonUP_wasPressed)
 
+# Przycisk MID wywołuje inicjalizacje sceny i danych dla Warszawy
 def buttonMID_wasPressed():
   global Random, humidity, temp, press, weather
   setup_warsaw()
   pass
 btnMID.wasPressed(buttonMID_wasPressed)
 
+# Przycisk DOWN wywołuje inicjalizacje sceny i danych dla Londynu
 def buttonDOWN_wasPressed():
   global Random, humidity, temp, press, weather
   setup_london()
@@ -253,6 +257,7 @@ def buttonDOWN_wasPressed():
 btnDOWN.wasPressed(buttonDOWN_wasPressed)
 
 
+# Głowna pętla programu
 if 1000:
   wifiCfg.doConnect('iPhone (Piotr)', 'loleks123')
   while not (wifiCfg.wlan_sta.isconnected()):
